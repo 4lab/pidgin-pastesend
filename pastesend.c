@@ -12,16 +12,10 @@
 
 PurplePlugin* pastesend_plugin = NULL;
 
-// static void send_message_cb(gpointer entry, PidginConversation* gtkconv)
-// {
-// 	g_signal_emit_by_name(gtkconv->entry, "message_send");
-// 	// g_signal_handlers_disconnect_matched(gtkconv->entry, G_SIGNAL_MATCH_FUNC, 0, 0, NULL, G_CALLBACK(send_message_cb), gtkconv);
-// }
-
-static void paste_and_send(GtkWidget* menu_entry, PidginConversation* gtkconv)
+static void paste_and_send(GtkWidget *menu_entry, PidginConversation *gtkconv)
 {
-	//g_signal_connect_after(G_OBJECT(gtkconv->entry), "paste-clipboard", G_CALLBACK(send_message_cb), gtkconv);
-	g_signal_emit_by_name(gtkconv->entry, "paste-clipboard");
+	GtkClipboard *clipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
+	gtk_text_buffer_paste_clipboard(gtkconv->entry_buffer, clipboard, NULL, TRUE);
 	g_signal_emit_by_name(gtkconv->entry, "message_send");
 }
 
@@ -30,7 +24,7 @@ static void right_click_popup(GtkTextView* text_view, GtkMenu* menu, PidginConve
 	GtkWidget* menu_entry = NULL;
 	GtkWidget* parent = NULL;
 
-	menu_entry = gtk_menu_item_new_with_label("Paste & Send, lol");
+	menu_entry = gtk_menu_item_new_with_label("Paste & Send");
 	gtk_widget_set_tooltip_text(menu_entry, "Paste current clipboard text and press \"send\".");
 	gtk_menu_append(GTK_MENU(menu), menu_entry);
 
@@ -38,7 +32,6 @@ static void right_click_popup(GtkTextView* text_view, GtkMenu* menu, PidginConve
 
 	g_signal_connect(G_OBJECT(menu_entry), "activate", G_CALLBACK(paste_and_send), gtkconv);
 	gtk_widget_show(menu_entry);
-	
 }
 
 static void attach_to_conversation(PurpleConversation* conv)
