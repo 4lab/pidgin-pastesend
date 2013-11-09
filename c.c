@@ -20,7 +20,7 @@ PurplePlugin* pastesend_plugin = NULL;
 
 static void paste_and_send(GtkWidget* menu_entry, PidginConversation* gtkconv)
 {
-	//g_signal_connect(G_OBJECT(gtkconv->entry), "paste-clipboard", G_CALLBACK(send_message_cb), gtkconv);
+	//g_signal_connect_after(G_OBJECT(gtkconv->entry), "paste-clipboard", G_CALLBACK(send_message_cb), gtkconv);
 	g_signal_emit_by_name(gtkconv->entry, "paste-clipboard");
 	g_signal_emit_by_name(gtkconv->entry, "message_send");
 }
@@ -66,7 +66,7 @@ static void detach_from_conversation(PurpleConversation* conv)
 static gboolean plugin_load(PurplePlugin* plugin)
 {
 	GList* convs;
-	void *conv_handle;
+	void* conv_handle;
 
 	pastesend_plugin = plugin;
 	for (convs = purple_get_conversations(); convs != NULL; convs = convs->next)
@@ -75,12 +75,12 @@ static gboolean plugin_load(PurplePlugin* plugin)
 	}
 
 	conv_handle = purple_conversations_get_handle();
-    purple_signal_connect(conv_handle, "conversation-created", plugin, PURPLE_CALLBACK(attach_to_conversation), NULL);
+	purple_signal_connect(conv_handle, "conversation-created", plugin, PURPLE_CALLBACK(attach_to_conversation), NULL);
 
 	return TRUE;
 }
 
-static gboolean plugin_unload(PurplePlugin *plugin)
+static gboolean plugin_unload(PurplePlugin* plugin)
 {
 	GList* convs;
 	for (convs = purple_get_conversations(); convs != NULL; convs = convs->next)
@@ -127,7 +127,7 @@ static PurplePluginInfo info = {
 	NULL
 };                               
 	
-static void init_plugin(PurplePlugin *plugin)
+static void init_plugin(PurplePlugin* plugin)
 { }
 
 PURPLE_INIT_PLUGIN(Paste_Send, init_plugin, info)
