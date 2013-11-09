@@ -103,8 +103,8 @@ static PurplePluginInfo info = {
 
 	"Paste & Send Plugin",          
 	"Paste & Send Plugin",          
-	"Niklas Mollenhauer <nikeee@outlook.com>",                          
-	"http://holz.nu",     
+	"4lab group",                          
+	"https://github.com/4lab",     
 	
 	plugin_load,
 	plugin_unload,
