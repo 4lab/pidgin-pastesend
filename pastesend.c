@@ -13,6 +13,8 @@ PurplePlugin *pastesend_plugin = NULL;
 
 static void paste_and_send(GtkWidget *menu_entry, PidginConversation *gtkconv)
 {
+    g_return_if_fail(gtkconv != NULL);
+
     GtkClipboard *clipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
     gtk_text_buffer_paste_clipboard(gtkconv->entry_buffer, clipboard, NULL, TRUE);
     g_signal_emit_by_name(gtkconv->entry, "message_send");
