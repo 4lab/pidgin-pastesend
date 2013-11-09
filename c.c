@@ -85,7 +85,7 @@ static gboolean plugin_unload(PurplePlugin* plugin)
 	GList* convs;
 	for (convs = purple_get_conversations(); convs != NULL; convs = convs->next)
 	{
-		PurpleConversation *conv = (PurpleConversation*)convs->data;
+		PurpleConversation* conv = (PurpleConversation*)convs->data;
 		if(PIDGIN_IS_PIDGIN_CONVERSATION(conv))
 		{
 			detach_from_conversation(conv);
