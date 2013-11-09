@@ -50,7 +50,8 @@ static void detach_from_conversation(PurpleConversation *conv)
 static gboolean plugin_load(PurplePlugin *plugin)
 {
     pastesend_plugin = plugin;
-    for (GList *convs = purple_get_conversations(); convs != NULL; convs = convs->next) {
+    GList *convs;
+    for (convs = purple_get_conversations(); convs != NULL; convs = convs->next) {
         attach_to_conversation((PurpleConversation *)convs->data);
     }
 
@@ -62,7 +63,8 @@ static gboolean plugin_load(PurplePlugin *plugin)
 
 static gboolean plugin_unload(PurplePlugin *plugin)
 {
-    for (GList *convs = purple_get_conversations(); convs != NULL; convs = convs->next) {
+    GList *convs;
+    for (convs = purple_get_conversations(); convs != NULL; convs = convs->next) {
         PurpleConversation *conv = (PurpleConversation *)convs->data;
         if(PIDGIN_IS_PIDGIN_CONVERSATION(conv)) {
             detach_from_conversation(conv);
