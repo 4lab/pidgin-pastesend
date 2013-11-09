@@ -24,8 +24,7 @@ static void right_click_popup(GtkTextView *text_view, GtkMenu *menu, PidginConve
 {
     GtkWidget *menu_entry = gtk_menu_item_new_with_label("Paste & Send");
     gtk_widget_set_tooltip_text(menu_entry, "Pastes the current clipboard text and presses \"send\".");
-    gtk_menu_append(GTK_MENU(menu), menu_entry);
-
+    gtk_menu_insert(GTK_MENU(menu), menu_entry, 1);
 
     g_signal_connect(G_OBJECT(menu_entry), "activate", G_CALLBACK(paste_and_send), gtkconv);
     gtk_widget_show(menu_entry);
