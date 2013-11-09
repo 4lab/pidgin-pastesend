@@ -7,7 +7,6 @@
 #include "version.h"
 
 #include "gtkconv.h"
-#include "gtkimhtml.h"
 #include "gtkplugin.h"
 
 PurplePlugin *pastesend_plugin = NULL;
